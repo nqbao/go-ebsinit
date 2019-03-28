@@ -5,7 +5,8 @@
 *.so
 *.dylib
 
-ebsinit
+ebsinit*
+go-ebsinit_*
 
 # Test binary, build with `go test -c`
 *.test
