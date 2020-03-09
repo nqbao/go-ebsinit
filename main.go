@@ -43,7 +43,7 @@ func main() {
 		log.Fatal("Unable to find any suitable device")
 	}
 
-	log.Printf("Found device %v, label: %v, type: %v", disk.Name, disk.Label, disk.Type)
+	log.Printf("Found device %v, label: %v, type: %v, UUID: %v", disk.Name, disk.Label, disk.Type, disk.UUID)
 
 	// check if we need to format the disk
 	if disk.Type == "" {
@@ -51,6 +51,15 @@ func main() {
 
 		if err != nil {
 			log.Fatal(err)
+		}
+	}
+
+	if disk.UUID == "" {
+		log.Printf("Refreshing disk info")
+		disk = GetDiskInfo(disk.Name)
+
+		if disk.UUID == "" {
+			log.Fatalf("Unable to locate disk UUID")
 		}
 	}
 
